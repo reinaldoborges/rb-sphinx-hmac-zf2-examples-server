@@ -1,0 +1,61 @@
+<div class="jumbotron">
+    <h1>ZF2 com Sphinx HMAC</h1>
+    <p>Exemplo de API (servidor) utilizando autenticação HMAC no Zend Framework <?php echo \Zend\Version\Version::VERSION ?></p>
+    <p><a class="btn btn-success btn-lg" href="https://github.com/reinaldoborges/rb-sphinx-hmac-zf2/wiki" target="_blank">Sphinx HMAC on GitHub &raquo;</a></p>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Autenticação na URI</h3>
+            </div>
+            <div class="panel-body">
+                <p>NA URI deve constar o parâmetro <strong>hmacauthentication</strong> para validar a requisição:</p>
+                <p><?php echo $this->url('application',array(),array('force_canonical' => true)) ?>/index/uri</p>
+                <p><a class="btn btn-success pull-right" href="<?php echo $this->url('application') ?>/index/uri" target="_blank">Acessar &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Autenticação via HEADER (sem sessão)</h3>
+            </div>
+            <div class="panel-body">
+                <p>Na requisição deve constar HEADER para validar a requisição:</p>
+                <p><?php echo $this->url('application',array(),array('force_canonical' => true)) ?>/index/header</p>
+                <p><a class="btn btn-success pull-right" href="<?php echo $this->url('application') ?>/index/header" target="_blank">Acessar &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Autenticação via HEADER (COM sessão)</h3>
+            </div>
+            <div class="panel-body">
+                <p>É preciso uma requisição (sem conteúdo) com um HEADER especial para iniciar sessão HMAC. Nas requisições subsequentes devem constar HEADER para validar cada requisição:</p>
+                <p><?php echo $this->url('application',array(),array('force_canonical' => true)) ?>/index/session</p>
+                <p><a class="btn btn-success pull-right" href="<?php echo $this->url('application') ?>/index/session" target="_blank">Acessar &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Cliente HTTP</h3>
+            </div>
+            <div class="panel-body">
+                <p>Há exemplos de clientes HTTP para essas três formas de autenticação no GitHub.</p>
+                <p>https://github.com/reinaldoborges/rb-sphinx-hmac-zf2-examples-client/</p>
+                <p><a class="btn btn-success pull-right" href="https://github.com/reinaldoborges/rb-sphinx-hmac-zf2-examples-client/" target="_blank">Acessar &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+    
+</div>
