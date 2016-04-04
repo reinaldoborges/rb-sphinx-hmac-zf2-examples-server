@@ -7,8 +7,21 @@
         "zf2"
     ],
     "homepage": "http://framework.zend.com/",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/reinaldoborges/rb-sphinx-hmac-zf2.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/reinaldoborges/rb-sphinx-hmac.git"
+        }
+    ],
     "require": {
         "php": ">=5.5",
-        "zendframework/zendframework": "~2.5"
+        "zendframework/zendframework": "~2.5",
+		"rb/sphinx-hmac-zf2": "dev-develop"
     }
 }

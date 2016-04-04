@@ -57,5 +57,92 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Configurando API (servidor)</h3>
+            </div>
+            <div class="panel-body">
+            
+            	<h4>Exemplo</h4>
+            	<p>Há três Actions no <b>IndexController</b> para demonstrar a utilização da autenticação HMAC.
+            	A única alteração necessária no Controller é, quando necessário, para obter a identificação do
+            	cliente da API.</p>
+            	<p>Veja como ativar autenticação HMAC em uma aplicação criada a partir do <a target="_blank" href="http://framework.zend.com/manual/current/en/user-guide/skeleton-application.html">ZF2 Skeleton</a>
+            	seguindo as etapas abaixo.</p>
+            	<br/>
+            	
+            	<h4>Composer</h4>
+            	<p>Configure a dependência em <b>composer.json</b>:</p>
+                <pre>
+<em>(...)</em>
+"minimum-stability": "dev",
+"prefer-stable": true,
+"repositories": [
+    {
+        "type": "git",
+        "url": "https://github.com/reinaldoborges/rb-sphinx-hmac-zf2.git"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/reinaldoborges/rb-sphinx-hmac.git"
+    }
+],
+"require": {
+    "php": ">=5.5",
+    "rb/sphinx-hmac-zf2": "dev-develop"
+}
+<em>(...)</em>  </pre>
+                <br/>
+                
+                <h4>Configuração do HMAC</h4>
+                <p>Crie uma Abstract Factory para instanciar os objetos HMAC (com suas configurações) para cada
+                situação. Neste exemplo, criamos um módulo <b>Rbhmac</b> para isso. O arquivo <b>module.config.php</b>
+                registra essa Factory:</p>
+                <pre>
+return array(
+    'service_manager' => array (
+        'abstract_factories' => array (
+            'Rbhmac\HMACAbstractFactory'
+        )
+    )
+);
+                </pre>
+                <br/>
+                
+                <h4>Ativação dos módulos</h4>
+                <p>Carregue os módulos <b>Sphinx HMAC ZF2</b> e o criado no exemplo que faz a configuração no arquivo
+                <b>application.config.php</b>:</p>
+                <pre>
+<em>(...)</em>
+'modules' => array(
+    'Application',
+    'RB\\Sphinx\\Hmac\\Zend',
+    'Rbhmac'
+),
+<em>(...)</em>  </pre>
+                <br/>
+                
+                <h4>Configurar autenticação HMAC</h4>
+                <p>Configure quais Controllers e Actions irão exigir autenticação HMAC, e indique que tipo de autenticação
+                cada um utilizará. Nesse exemplo usamos o arquivo <b>config/autoload/local.php</b> para isso:</p>
+                <pre>
+<em>(...)</em>
+'Application\Controller\Index' => array(
+	'actions' => array(
+		'index' => false,
+		'header' => array(
+			'selector' => 'HMAC',
+			'adapter' => 'HMACHeaderAdapter'
+		),
+<em>(...)</em>  </pre>
+                <p>Há um exemplo mais detalhado dessa configuração no módulo em
+                <b>vendor/rb/sphinx-hmac-zf2/config/local.php.dist</b>
+                </p>
+                
+            </div>
+        </div>
+    </div>
     
 </div>
