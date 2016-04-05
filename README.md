@@ -1,3 +1,82 @@
+Exemplo de API (servidor)
+=========================
+
+Há três Actions no *IndexController* para demonstrar a utilização da autenticação HMAC. A única alteração necessária no Controller é, quando necessário, para obter a identificação do cliente da API.
+
+Veja como ativar autenticação HMAC em uma aplicação criada a partir do [ZF2 Skeleton](http://framework.zend.com/manual/current/en/user-guide/skeleton-application.html) seguindo as etapas abaixo.
+
+### Composer
+
+Configure a dependência em `composer.json`:
+
+```
+(...)
+"minimum-stability": "dev",
+"prefer-stable": true,
+"repositories": [
+    {
+        "type": "git",
+        "url": "https://github.com/reinaldoborges/rb-sphinx-hmac-zf2.git"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/reinaldoborges/rb-sphinx-hmac.git"
+    }
+],
+"require": {
+    "php": ">=5.5",
+    "rb/sphinx-hmac-zf2": "dev-develop"
+}
+(...)  
+```
+
+### Configuração do HMAC
+
+Crie uma *Abstract Factory* para instanciar os objetos HMAC (com suas configurações) para cada situação. Neste exemplo, criamos um módulo **Rbhmac** para isso. O arquivo `module.config.php` registra essa Factory:
+
+```
+return array(
+    'service_manager' => array (
+        'abstract_factories' => array (
+            'Rbhmac\HMACAbstractFactory'
+        )
+    )
+);
+```
+
+### Ativação dos módulos
+
+Carregue os módulos **Sphinx HMAC ZF2** e o criado no exemplo que faz a configuração no arquivo `application.config.php`:
+
+```
+(...)
+'modules' => array(
+    'Application',
+    'RB\\Sphinx\\Hmac\\Zend',
+    'Rbhmac'
+),
+(...)  
+```
+
+### Configurar autenticação HMAC
+
+Configure quais *Controllers* e *Actions* irão exigir autenticação HMAC, e indique que tipo de autenticação cada um utilizará. Nesse exemplo usamos o arquivo `config/autoload/local.php` para isso:
+
+```
+(...)
+'Application\Controller\Index' => array(
+	'actions' => array(
+		'index' => false,
+		'header' => array(
+			'selector' => 'HMAC',
+			'adapter' => 'HMACHeaderAdapter'
+		),
+(...)
+```
+
+Há um exemplo mais detalhado dessa configuração no módulo em `vendor/rb/sphinx-hmac-zf2/config/local.php.dist`
+
+
 ZendSkeletonApplication
 =======================
 
